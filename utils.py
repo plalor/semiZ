@@ -10,10 +10,10 @@ def calcLookupTables(phi_H, phi_L, D, E, a_H, b_H, c_H, a_L, b_L, c_L, lmbda_ran
     Parameters
     ----------
     phi_H : array_like
-        Shape (n,) high energy photon beam spectrum.
+        Shape (n,) or shape (k, n) high energy photon beam spectrum.
         
     phi_L : array_like
-        Shape (n,) low energy photon beam spectrum.
+        Shape (n,) or shape (k, n) low energy photon beam spectrum.
 
     D : array_like
         Shape (n,) detector response function.
@@ -79,6 +79,9 @@ def calcLookupTables(phi_H, phi_L, D, E, a_H, b_H, c_H, a_L, b_L, c_L, lmbda_ran
     print("completed in %.2f seconds" % (t1 - t0))
     print("Calculating lookup tables...", end='')
     tables = np.zeros((6, k_bins, m_bins, l_bins))
+    if phi_H.ndim == 1:
+        phi_H = np.tile(phi_H, (k_bins,1))
+        phi_L = np.tile(phi_L, (k_bins,1))
     D_phi_H = D * phi_H
     D_phi_L = D * phi_L
     d_H = np.sum(D_phi_H, axis=1)
@@ -152,8 +155,9 @@ def fitSemiempirical(alpha, lmbda, Z, phi, D, E):
     """
     def calcLoss(x):
         loss = 0
-        for i in range(len(alpha)):
-            mu = mu_tot(E, Z[i]) + (x[0]-1)*mu_PE(E, Z[i]) + (x[1]-1)*mu_CS(E, Z[i]) + (x[2]-1)*mu_PP(E, Z[i])
+        for i in range(len(Z)):
+            key = Z[i] if np.size(Z[i]) == 1 else tuple(Z[i])
+            mu = mu_tot_dict[key] + (x[0]-1)*mu_PE_dict[key] + (x[1]-1)*mu_CS_dict[key] + (x[2]-1)*mu_PP_dict[key]
             if np.size(Z[i]) == 1:
                 m0 = np.exp(-mu * lmbda[i])
             else:
@@ -169,6 +173,17 @@ def fitSemiempirical(alpha, lmbda, Z, phi, D, E):
     assert len(alpha) >= 3
     D_phi = D * phi
     d = np.sum(D_phi)
+    mu_tot_dict = {}
+    mu_PE_dict = {}
+    mu_CS_dict = {}
+    mu_PP_dict = {}
+    for i in range(len(Z)):
+        key = Z[i] if np.size(Z[i]) == 1 else tuple(Z[i])
+        mu_tot_dict[key] = mu_tot(E, Z[i])
+        mu_PE_dict[key] = mu_PE(E, Z[i])
+        mu_CS_dict[key] = mu_CS(E, Z[i])
+        mu_PP_dict[key] = mu_PP(E, Z[i])
+        
     res = minimize(calcLoss, x0=(1, 1, 1), bounds=[(0, None)]*3)
     assert res.success
     a, b, c = res.x
