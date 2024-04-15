@@ -72,8 +72,9 @@ def calcLookupTables(phi_H, phi_L, D, E, a_H, b_H, c_H, a_L, b_L, c_L, lmbda_ran
     for k in range(k_bins):
         for m in range(m_bins):
             Z = Z_range[m]
-            mu_mat_H[k,:,m] = mu_tot(E, Z) + (a_H[k]-1)*mu_PE(E, Z) + (b_H[k]-1)*mu_CS(E, Z) + (c_H[k]-1)*mu_PP(E, Z)
-            mu_mat_L[k,:,m] = mu_tot(E, Z) + (a_L[k]-1)*mu_PE(E, Z) + (b_L[k]-1)*mu_CS(E, Z) + (c_L[k]-1)*mu_PP(E, Z)
+            tot, PE, CS, PP = mu_tot(E, Z), mu_PE(E, Z), mu_CS(E, Z), mu_PP(E, Z)
+            mu_mat_H[k,:,m] = tot + (a_H[k]-1)*PE + (b_H[k]-1)*CS + (c_H[k]-1)*PP
+            mu_mat_L[k,:,m] = tot + (a_L[k]-1)*PE + (b_L[k]-1)*CS + (c_L[k]-1)*PP
     
     t1 = time()
     print("completed in %.2f seconds" % (t1 - t0))
