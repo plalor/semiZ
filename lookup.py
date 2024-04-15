@@ -38,7 +38,7 @@ class Lookup:
     def __init__(self, tables, lmbda_range, Z_range, interpolate_lmbda = False, interpolate_Z = False):
         lmbda_diff = np.diff(lmbda_range)
         Z_diff = np.diff(Z_range)
-        if np.any(lmbda_diff != lmbda_diff[0]) or np.any(Z_diff != Z_diff[0]):
+        if not np.allclose(lmbda_diff, lmbda_diff[0]) or not np.allclose(Z_diff, Z_diff[0]):
             raise ValueError("Must use equispaced grid to properly define Lookup object")
         self.lmbda_min = lmbda_range[0]
         self.dLmbda = lmbda_diff[0]
