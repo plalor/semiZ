@@ -59,7 +59,7 @@ lmbda, Z = calcZ(im_H, im_L, lookup, labels=labels)
 
 #### For full algorithmic details and a validation using Geant4 Monte Carlo, see the original publication:
 
-Peter Lalor, Areg Danagoulian. Atomic number estimation of dual energy cargo radiographs using a semiempirical transparency model. *Nuclear Instruments and Methods in Physics Research Section A: Accelerators, Spectrometers, Detectors and Associated Equipment*, 2024. https://doi.org/10.1016/j.nima.2024.169343
+Peter Lalor, Areg Danagoulian. Atomic number estimation of dual energy cargo radiographs using a semiempirical transparency model. *Nuclear Instruments and Methods in Physics Research Section A: Accelerators, Spectrometers, Detectors and Associated Equipment*, 1064:169343, 2024. https://doi.org/10.1016/j.nima.2024.169343
 
 ## Questions?
 
