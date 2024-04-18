@@ -23,8 +23,8 @@ class XCOM:
             return np.array([self.mu_tot(E, Z[i]) for i in range(np.size(Z))]).T
         if Z < 1 or Z > 100:
             raise ValueError("Invalid value: Z = %d; Z must be between 1 and 100" % Z)
-        if np.min(E) < 1e-3 or np.max(E) > 2e1:
-            raise ValueError("Energy must be between 1 keV and 20 MeV")
+        if np.min(E) < 1e-3 or np.max(E) > 1e5:
+            raise ValueError("Energy must be between 1 keV and 100 GeV")
         
         idx1 = np.floor(Z-1).astype('int')
         idx2 = np.ceil(Z-1).astype('int')
@@ -41,8 +41,8 @@ class XCOM:
             return np.array([self.mu_PE(E, Z[i]) for i in range(np.size(Z))]).T
         if Z < 1 or Z > 100:
             raise ValueError("Invalid value: Z = %d; Z must be between 1 and 100" % Z)
-        if np.min(E) < 1e-3 or np.max(E) > 2e1:
-            raise ValueError("Energy must be between 1 keV and 20 MeV")
+        if np.min(E) < 1e-3 or np.max(E) > 1e5:
+            raise ValueError("Energy must be between 1 keV and 100 GeV")
         
         idx1 = np.floor(Z-1).astype('int')
         idx2 = np.ceil(Z-1).astype('int')
@@ -59,8 +59,8 @@ class XCOM:
             return np.array([self.mu_CS(E, Z[i]) for i in range(np.size(Z))]).T
         if Z < 1 or Z > 100:
             raise ValueError("Invalid value: Z = %d; Z must be between 1 and 100" % Z)
-        if np.min(E) < 1e-3 or np.max(E) > 2e1:
-            raise ValueError("Energy must be between 1 keV and 20 MeV")
+        if np.min(E) < 1e-3 or np.max(E) > 1e5:
+            raise ValueError("Energy must be between 1 keV and 100 GeV")
         
         idx1 = np.floor(Z-1).astype('int')
         idx2 = np.ceil(Z-1).astype('int')
@@ -77,8 +77,8 @@ class XCOM:
             return np.array([self.mu_PP(E, Z[i]) for i in range(np.size(Z))]).T
         if Z < 1 or Z > 100:
             raise ValueError("Invalid value: Z = %d; Z must be between 1 and 100" % Z)
-        if np.min(E) < 1e-3 or np.max(E) > 2e1:
-            raise ValueError("Energy must be between 1 keV and 20 MeV")
+        if np.min(E) < 1e-3 or np.max(E) > 1e5:
+            raise ValueError("Energy must be between 1 keV and 100 GeV")
         
         idx1 = np.floor(Z-1).astype('int')
         idx2 = np.ceil(Z-1).astype('int')
