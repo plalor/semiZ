@@ -27,40 +27,42 @@
 
 ## How do I use this repository?
 
-#### Step zero: import the necessary functions
+In the `tutorial/` subdirectory, you will find a tutorial along with all the data necessary to use the model. The tutorial contains the following structure:
+
+#### Step one: import the necessary functions
 
 ```python:
 from semiZ import fitSemiempirical, calcLookupTables, Lookup, calcZ
 ```
 
-#### Step one: perform the calibration, i.e. find the parameters `a`, `b`, and `c` that best reproduce the calibration measurements:
+#### Step two: perform the calibration, i.e. find the parameters `a`, `b`, and `c` that best reproduce the calibration measurements:
 
 ```python:
 a_H, b_H, c_H = fitSemiempirical(alpha_H_calib, lmbda_calib, Z_calib, phi_H, D, E)
 a_L, b_L, c_L = fitSemiempirical(alpha_L_calib, lmbda_calib, Z_calib, phi_L, D, E)
 ```
 
-#### Step two: precompute the forward model:
+#### Step three: precompute the forward model:
 
 ```python:
 tables = calcLookupTables(phi_H, phi_L, D, E, a_H, b_H, c_H, a_L, b_L, c_L, lmbda_range, Z_range)
 lookup = Lookup(tables, lmbda_range, Z_range, interpolate_lmbda = True)
 ```
 
-#### Step three: find the `{lambda, Z}` values which best reproduce the dual energy image:
+#### Step four: find the `{lambda, Z}` values which best reproduce the dual energy image:
 
 ```python:
 lmbda, Z = calcZ(im_H, im_L, lookup, labels=labels)
 ```
 
-#### Note that steps one and two only need to be performed once, and then the output can be saved to `tables.npy`. Step three can then be performed on several different images without needing to redo the calibration or recompute the forward model.
+#### Note that steps one through three only need to be performed once, and then the output can be saved to `tables.npy`. Step four can then be performed on several different images without needing to redo the calibration or recompute the forward model.
 
 ## References
 
 #### For full algorithmic details and a validation using Geant4 Monte Carlo, see the original publication:
 
-Peter Lalor, Areg Danagoulian. Atomic number estimation of dual energy cargo radiographs using a semiempirical transparency model. *Nuclear Instruments and Methods in Physics Research Section A: Accelerators, Spectrometers, Detectors and Associated Equipment*, 1064:169343, 2024. https://doi.org/10.1016/j.nima.2024.169343
+Peter Lalor, Areg Danagoulian. Atomic number estimation of dual energy cargo radiographs using a semiempirical transparency model. *Nuclear Instruments and Methods in Physics Research Section A: Accelerators, Spectrometers, Detectors and Associated Equipment*, 2024. https://doi.org/10.1016/j.nima.2024.169343
 
-## Questions?
+## Notes
 
-For bugs, questions, or other inquiries, contact [Peter Lalor](mailto:plalor@mit.edu?subject=[GitHub]%20semiZ)
+For bugs, questions, or business inquiries, contact [Peter Lalor](mailto:plalor@mit.edu?subject=[GitHub]%20semiZ)
