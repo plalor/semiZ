@@ -65,4 +65,4 @@ Peter Lalor, Areg Danagoulian. Atomic number estimation of dual energy cargo rad
 
 ## Notes
 
-For bugs, questions, or business inquiries, contact [Peter Lalor](mailto:plalor@mit.edu?subject=[GitHub]%20semiZ)
+For bugs, questions, or business inquiries, contact [Peter Lalor](mailto:plalor@alum.mit.edu?subject=[GitHub]%20semiZ)
